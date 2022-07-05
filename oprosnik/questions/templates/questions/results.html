@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-        <style type="text/css">
+          <style type="text/css">
         .img {
             width:35%;
         }
@@ -15,17 +15,21 @@
             text-align:center;
             height:100px;
         }
+        h4{
+            margin-left:30px;
+        }
     </style>
 </head>
 <body>
-   <div class = "header">
+     <div class = "header">
         <h1>Тестовая система</h1>
     </div>
-    <h1>Список вопросов</h1>
+        <h1>Статистика по тесту {{test.name_test}}:</h1>
     {% for question in questions %}
-     <a href="{% url 'AnswerView' question.test_num.id question.id %}"><h2>{{forloop.counter}}.{{question.question_text}}</h2></a>
-   {% endfor %}
-<a href="{% url 'TestsResults' test.id %}">Статистика ответов на вопросы</a>
-
+     <h2>{{forloop.counter}}.{{question.question_text}}</h2>
+        {% for answer in question.answer_set.all %}
+            <h4>{{forloop.counter}}.{{answer.answer_text}}:{{answer.votes}} times</h4>
+        {% endfor %}
+    {% endfor %}
 </body>
 </html>

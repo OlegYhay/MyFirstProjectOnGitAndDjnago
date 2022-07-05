@@ -10,11 +10,11 @@ class Test(models.Model):
 
 class Questions(models.Model):
     question_text = models.CharField(max_length=100)
-    photo = models.FileField(upload_to='static/questions')
+    photo = models.FileField(upload_to='media/questions')
     test_num = models.ForeignKey(Test, on_delete=models.CASCADE, default='')
 
 
 class Answer(models.Model):
     answer_text = models.CharField(max_length=100)
-    votes = models.IntegerField(default=0,blank=True)
+    votes = models.IntegerField(default=0, blank=True)
     question_num = models.ForeignKey(Questions, on_delete=models.CASCADE, default='')

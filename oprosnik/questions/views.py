@@ -25,7 +25,7 @@ def QuestionView(request, test_id):
         print(answer.votes)
     except:
         print(request.POST)
-    return render(request, 'questions/questions.html', {'questions': questions})
+    return render(request, 'questions/questions.html', {'questions': questions, 'test': test})
 
 
 class AnswerView(generic.DetailView):
@@ -34,11 +34,12 @@ class AnswerView(generic.DetailView):
     context_object_name = 'answers'
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # question = get_object_or_404(Questions, pk=question_id)
-        # print(self.request.POST['answer'])
-        # Add in a QuerySet of all the books
-        # context['answers'] = Answer.objects.filter(question_num_id=self.kwargs['pk'])
         context['question'] = Questions.objects.filter(id=self.kwargs['pk'])[0]
         return context
+
+
+def TestsResults(request, test_id):
+    test = get_object_or_404(Test, id=test_id)
+    questions = test.questions_set.all()
+    return render(request, 'questions/results.html', {'questions': questions, 'test': test})

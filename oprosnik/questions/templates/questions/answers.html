@@ -1,16 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <style type="text/css">
+        .img {
+            width:35%;
+        }
+        body{
+            background-color:white;
+        }
+        .header{
+            width:100%;
+            text-align:center;
+            height:100px;
+        }
+    </style>
 </head>
 <body>
+    <div class = "header">
+        <h1>Тестовая система</h1>
+    </div>
     {{test_id}}
     {{pk}}
       <form action="{% url 'QuestionView' question.test_num.id %}" method="post">
         {% csrf_token %}
         <fieldset>
-            <legend><h1>{{question.question_text}}</h1></legend>
+            <img class = "img" src="{{ question.photo.url }}"/>
+            <br/>
             {% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif%}
             {% for answer in question.answer_set.all %}
                 <input type = "radio" name = "answer" id = "answer{{forloop.counter}}"

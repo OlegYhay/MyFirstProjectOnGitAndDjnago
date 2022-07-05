@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
 
-from questions.views import IndexView, QuestionView, AnswerView
+from oprosnik import settings
+from questions.views import IndexView, QuestionView, AnswerView, TestsResults
 
 urlpatterns = [
-    path('', IndexView.as_view(), name="IndexView"),
-    path('admin/', admin.site.urls),
-    path('test<int:test_id>/', QuestionView, name="QuestionView"),
-    path('test<int:test_id>/<int:pk>/', AnswerView.as_view(), name="AnswerView"),
-]
+                  path('', IndexView.as_view(), name="IndexView"),
+                  path('admin/', admin.site.urls),
+                  path('test<int:test_id>/', QuestionView, name="QuestionView"),
+                  path('test<int:test_id>/<int:pk>/', AnswerView.as_view(), name="AnswerView"),
+                  path('statistic/<int:test_id>/', TestsResults, name="TestsResults"),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
