@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for test in list_tests %}
+    <a href="{% url 'QuestionView' test.id %}"><h1>{{test.name_test}}</h1></a>
+    {% endfor %}
+</body>
+</html>
